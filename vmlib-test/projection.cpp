@@ -16,11 +16,11 @@ TEST_CASE( "Perspective projection", "[mat44]" )
 	// Field of view (FOV) = 60 degrees
 	// Window size is 1280x720 and we defined the aspect ratio as w/h
 	// Near plane at 0.1 and far at 100
-	SECTION( "Standard" )
-	{
-		auto const proj = make_perspective_projection(
-			60.f * std::numbers::pi_v<float> / 180.f,
-			1280/float(720),
+        SECTION( "Standard" )
+        {
+                auto const proj = make_perspective_projection(
+                        60.f * std::numbers::pi_v<float> / 180.f,
+                        1280/float(720),
 			0.1f, 100.f
 		);
 
@@ -41,7 +41,23 @@ TEST_CASE( "Perspective projection", "[mat44]" )
 
 		REQUIRE_THAT( (proj[3,0]), WithinAbs( 0.f, kEps_ ) );
 		REQUIRE_THAT( (proj[3,1]), WithinAbs( 0.f, kEps_ ) );
-		REQUIRE_THAT( (proj[3,2]), WithinAbs( -1.f, kEps_ ) );
-		REQUIRE_THAT( (proj[3,3]), WithinAbs( 0.f, kEps_ ) );
-	}
+                REQUIRE_THAT( (proj[3,2]), WithinAbs( -1.f, kEps_ ) );
+                REQUIRE_THAT( (proj[3,3]), WithinAbs( 0.f, kEps_ ) );
+        }
+
+        SECTION( "Square aspect" )
+        {
+                auto const proj = make_perspective_projection(
+                        std::numbers::pi_v<float> / 2.f,
+                        1.f,
+                        0.5f, 10.f
+                );
+
+                REQUIRE_THAT( (proj[0,0]), WithinAbs( 1.f, kEps_ ) );
+                REQUIRE_THAT( (proj[1,1]), WithinAbs( 1.f, kEps_ ) );
+                REQUIRE_THAT( (proj[2,2]), WithinAbs( -1.105263f, kEps_ ) );
+                REQUIRE_THAT( (proj[2,3]), WithinAbs( -1.052632f, kEps_ ) );
+                REQUIRE_THAT( (proj[3,2]), WithinAbs( -1.f, kEps_ ) );
+                REQUIRE_THAT( (proj[3,3]), WithinAbs( 0.f, kEps_ ) );
+        }
 }

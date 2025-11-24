@@ -115,10 +115,12 @@ int main() try
 	setup_gl_debug_output();
 #	endif // ~ !NDEBUG
 
-	// Global GL state
-	OGL_CHECKPOINT_ALWAYS();
+        // Global GL state
+        OGL_CHECKPOINT_ALWAYS();
 
-	// TODO: global GL setup goes here
+        glEnable( GL_DEPTH_TEST );
+        glDepthFunc( GL_LEQUAL );
+        glClearColor( 0.05f, 0.08f, 0.12f, 1.0f );
 
 	OGL_CHECKPOINT_ALWAYS();
 
@@ -170,12 +172,12 @@ int main() try
 		// Update state
 		//TODO: update state
 
-		// Draw scene
-		OGL_CHECKPOINT_DEBUG();
+                // Draw scene
+                OGL_CHECKPOINT_DEBUG();
 
-		//TODO: draw frame
+                glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-		OGL_CHECKPOINT_DEBUG();
+                OGL_CHECKPOINT_DEBUG();
 
 		// Display results
 		glfwSwapBuffers( window );
