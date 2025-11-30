@@ -1,0 +1,18 @@
+# Visual Studio cache
+.vs/
+
+# Build folders
+Debug/
+Release/
+x64/
+bin/
+obj/
+
+# Visual Studio user files
+*.user
+*.suo
+
+# CMake / Premake generated files
+*.vcxproj
+*.vcxproj.filters
+*.sln
